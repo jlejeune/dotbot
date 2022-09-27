@@ -1,0 +1,20 @@
+# ls
+alias ls='ls --classify --tabsize=0 --literal --color=auto --show-control-chars'
+alias ll='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lr='ls -ctrl'
+alias lrh='ls -ctrlh'
+alias lra='ls -ctrla'
+
+# others 
+alias titi='/usr/local/bin/tmux.sh'
+alias c='clear'
+alias less='less --quiet'
+alias s='cd ..'
+alias df='df --human-readable'
+alias du='du --human-readable'
+alias m='mutt -y'
+alias md='mkdir'
+alias rd='rmdir'
+alias upgrade='apt-get update && apt-get upgrade && apt-get clean'

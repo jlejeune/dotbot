@@ -1,0 +1,46 @@
+---
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- create:
+    - ~/bin
+    - ~/dev
+
+- clean:
+    ~/:
+      force: true
+
+- link:
+    ~/.zshrc:
+      path: zsh/zshrc
+      force: true
+    ~/.oh-my-zsh:
+      path: zsh/ohmyzsh
+      force: true
+
+- shell:
+    -
+      command: git submodule update --init --recursive
+      description: Installing submodules
+    -
+      command: '
+        for file in zsh/custom/*.zsh; do
+          cp -arf ${file} ~/.oh-my-zsh/custom;
+        done'
+      description: Install ohmyzsh config files
+    -
+      command: '
+        for theme in zsh/custom/themes; do
+          cp -arfT ${theme} ~/.oh-my-zsh/custom/themes;
+        done'
+      description: Install ohmyzsh themes
+      stdout: true
+    -
+      command: '
+        for plugin in zsh/custom/plugins; do
+          cp -arfT ${plugin} ~/.oh-my-zsh/custom/plugins;
+        done'
+      description: Install ohmyzsh plugins
+      stdout: true
