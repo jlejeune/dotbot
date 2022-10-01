@@ -22,11 +22,9 @@
       path: git/gitconfig
     ~/.gitignore:
       path: git/gitignore
+    ~/.vim: vim/
 
 - shell:
-    -
-      command: git submodule update --init --recursive
-      description: Installing submodules
     -
       command: '
         for file in zsh/custom/*.zsh; do
@@ -47,3 +45,15 @@
         done'
       description: Install ohmyzsh plugins
       stdout: true
+    -
+      command: vim +PluginInstall +qall
+      description: Install vim Vundle plugins
+
+- link:
+    ~/.vimrc:
+      path: vim/vimrc
+
+- shell:
+    -
+      command: git submodule update --init --recursive
+      description: Installing submodules

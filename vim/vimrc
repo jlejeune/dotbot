@@ -1,0 +1,217 @@
+" No vi-compatible
+set nocompatible
+
+""""""""""""
+"" VUNDLE
+""""""""""""
+" Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
+if !filereadable(vundle_readme)
+    echo "Installing Vundle..."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    let iCanHazVundle=0
+endif
+
+" Required for vundle
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Let Vundle manage Vundle (required!)
+Plugin 'gmarik/Vundle.vim'
+
+""""""""""""""""""""
+"" BUNDLES VUNDLE
+""""""""""""""""""""
+"" Nerdtree
+Plugin 'preservim/nerdtree'
+Plugin 'scrooloose/nerdtree-project-plugin', { 'on': 'NERDTreeToggle' }
+Plugin 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on':  'NERDTreeToggle' }
+" Ignore files on NERDTree
+let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
+
+" Ale
+Plugin 'dense-analysis/ale'
+let g:ale_enabled = 1
+let g:ale_sign_error = '✗'
+let g:ale_lint_on_enter = 0
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_python_flake8_executable = 'flake8'
+let g:ale_python_flake8_options = '--ignore=E501,W503'
+let g:ale_python_pylint_executable = 'pylint3'
+let g:ale_python_mypy_executable = 'mypy'
+let g:ale_python_mypy_options = '--ignore-missing-imports --disallow-untyped-defs --show-error-codes --show-error-context --show-column-numbers --strict-equality --warn-no-return --warn-incomplete-stub --warn-redundant-casts --warn-unreachable'
+let g:ale_python_black_executable = '/home/jlejeune/.local/bin/black'
+let g:ale_python_black_options = '--line-length 120'
+let g:ale_python_isort_executable = '/home/jlejeune/.local/bin/isort'
+let g:ale_python_isort_options = '--line-length 120 --profile black'
+let g:ale_linters = {
+\   'python': ['flake8', 'mypy'],
+\   'yaml': ['yamlint'],
+\}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['black', 'isort'],
+\}
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_open_list = 1
+let g:ale_completion_enabled = 1
+
+" Pending tasks list
+Plugin 'fisadev/FixedTaskList.vim'
+
+" vim-puppet
+Plugin 'rodjek/vim-puppet'
+let g:puppet_align_hashes = 1
+
+" tabular
+Plugin 'godlygeek/tabular'
+
+" Git
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+
+" Airline
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+let g:airline_powerline_fonts = 1
+let g:airline_theme='powerlineish'
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+" powerline symbols
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.dirty='⚡'
+
+set t_Co=256
+
+" NERD Commenter
+Plugin 'scrooloose/nerdcommenter'
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
+
+" Jedi
+Plugin 'davidhalter/jedi-vim'
+let g:jedi#popup_on_dot = 1
+let g:jedi#popup_select_first = 0
+let g:jedi#show_call_signatures = "1"
+let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<Tab>"
+let g:jedi#rename_command = "<leader>r"
+
+" indent-guides
+Plugin 'nathanaelkane/vim-indent-guides'
+" Vim Indent Guides
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 0
+hi IndentGuidesOdd ctermbg=236
+hi Normal ctermbg=232
+hi nonText ctermbg=232
+
+" Diminactive
+Plugin 'blueyed/vim-diminactive'
+hi ColorColumn ctermbg=232
+let g:diminactive_enable_focus = 1
+let g:diminactive_use_syntax = 1
+
+" Installing plugins the first time
+if iCanHazVundle == 0
+    echo "Installing Bundles, please ignore key map error messages"
+    echo ""
+    :PluginInstall
+endif
+
+"""""""""""""""
+"" MAIN CONF
+"""""""""""""""
+" Save
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Max tabs number
+set tabpagemax=100
+
+" Indent
+set autoindent
+set paste
+
+" Tabs and spaces handling
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+
+" Allow plugins by file type
+filetype plugin on
+filetype indent on
+
+" Showing line numbers
+set number
+
+" Show status bar
+set laststatus=2
+
+" UTF8 Support
+set encoding=utf-8
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" Search
+set incsearch
+set ignorecase
+set smartcase
+set hlsearch
+
+" Allow syntax highlight on
+syntax on
+
+" Load shorkeys
+execute 'source ' . $HOME . '/.vim/shortkeys.vim'
+
+" Load functions
+execute 'source ' . $HOME . '/.vim/functions.vim'
+
+" Use a specific scheme for diff mode
+if &diff
+    colorscheme diff_scheme
+endif
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
