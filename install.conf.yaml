@@ -3,6 +3,7 @@
     link:
       create: true
       relink: true
+      force: true
 
 - create:
     - ~/bin
@@ -15,10 +16,12 @@
 - link:
     ~/.zshrc:
       path: zsh/zshrc
-      force: true
     ~/.oh-my-zsh:
       path: zsh/ohmyzsh
-      force: true
+    ~/.gitconfig:
+      path: git/gitconfig
+    ~/.gitignore:
+      path: git/gitignore
 
 - shell:
     -

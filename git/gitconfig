@@ -1,0 +1,33 @@
+[user]
+	email = julien.github@mailops.fr
+	name = Julien LE JEUNE
+
+[core]
+    editor = vim
+    excludesfile = ~/.gitignore
+
+[push]
+    default = current
+
+[pull]
+    rebase = true
+
+[color]
+    ui = auto
+
+[color "branch"]
+    current = yellow bold
+    local = green bold
+    remote = cyan bold
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+
+[color "status"]
+    added = green bold
+    changed = yellow bold
+    untracked = red bold
